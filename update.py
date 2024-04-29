@@ -16,15 +16,16 @@ def app():
     # Get the email of the user
     email = login.email_fn()
 
-
     st.title("Edit Profile")
 
     name = st.text_input("Edit Name")
 
-    # Update the user database
-    with conn.session as session:
-        query = text(f"UPDATE users SET name = '{name}' WHERE email = '{email}';")
-        session.execute(query)
-        session.commit()
+    if st.button("Update"):
 
-    st.success("Profile Updated Successfully")
+        # Update the user database
+        with conn.session as session:
+            query = text(f"UPDATE users SET name = '{name}' WHERE email = '{email}';")
+            session.execute(query)
+            session.commit()
+
+        st.success("Profile Updated Successfully")

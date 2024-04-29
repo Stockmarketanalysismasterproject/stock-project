@@ -56,7 +56,7 @@ def app():
 
             # Update the user auth_status
             with conn.session as session:
-                query = text(f"UPDATE users SET auth_status = 'TRUE' WHERE email = '{email}';")
+                query = text(f"UPDATE users SET auth_status = 1 WHERE email = '{email}';")
                 session.execute(query)
                 session.commit()
 

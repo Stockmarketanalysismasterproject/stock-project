@@ -32,24 +32,26 @@ def app():
     # Hashing the current password
     hashed_password = hash_password(cur_pass)
 
-    # Run SQL query to get the name of the user, i.e., the name corresponding to the email
+    # Run SQL query to get the current password of the user, i.e., the password corresponding to the email
     true_pass = conn.query(f"SELECT password FROM users WHERE email = '{email}';", ttl="10m")
     true_pass = true_pass.iloc[0, 0]
 
-    # Check if the current password is valid
-    if hashed_password != true_pass:
-        st.error("Invalid Password")
-    
-    # Check if new password and confirm password is same
-    elif pass1 != pass2:
-        st.error("Password Mismatched")
+    if st.button("Update"):
 
-    else:
-        # Hashing the new password
-        hashed_password = hash_password(pass1)
-        # Update the password in database
-        with conn.session as session:
-            query = text(f"UPDATE users SET password = '{hashed_password}' WHERE email = '{email}';")
-            session.execute(query)
-            session.commit()
-        st.success("Password Changed Successfully")
+        # Check if the current password is valid
+        if hashed_password != true_pass:
+            st.error("Invalid Password")
+        
+        # Check if new password and confirm password is same
+        elif pass1 != pass2:
+            st.error("Password Mismatched")
+
+        else:
+            # Hashing the new password
+            hashed_password = hash_password(pass1)
+            # Update the password in database
+            with conn.session as session:
+                query = text(f"UPDATE users SET password = '{hashed_password}' WHERE email = '{email}';")
+                session.execute(query)
+                session.commit()
+            st.success("Password Changed Successfully")

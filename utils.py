@@ -50,6 +50,8 @@ def sendMail(subject, receiver_email, html_message):
         server.starttls(context=context) # Secure the connection
         server.login(username, password)
         server.sendmail(sender_email, receiver_email, message.as_string())
+        res = server.sendmail(sender_email, receiver_email, message.as_string())
+        print(res)
         server.quit()
     kwargs = locals()
     try:
