@@ -91,7 +91,7 @@ if button:
 
             # Check if the trend is positive, negative, or flat
             if all(change > 0 for change in trend_change):
-                trend_status = "Sold"
+                trend_status = "Sell"
             elif all(change < 0 for change in trend_change):
                 trend_status = "Buy"
             else:

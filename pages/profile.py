@@ -40,5 +40,8 @@ class MultiApp:
         if app == "Change Password":
             # Call app function from reset.py
             reset.app()
+        if app == "Logout":
+            # redirect to index page
+            st.switch_page('pages/logout.py')
              
     run()
